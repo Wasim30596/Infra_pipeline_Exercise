@@ -8,7 +8,7 @@ module "vpc" {
 
 module "ec2" {
   source               = "../../modules/ec2"
-  ec2_ami              = "ami-0afc7fe9be84307e4"
+  ec2_ami              = "ami-05d2d839d4f73aafb"
   ec2_instance_type    = "t2.micro"  
   ec2_instance_count   = 2
   env                  = "dev"
