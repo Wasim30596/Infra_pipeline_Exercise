@@ -7,10 +7,10 @@ pipeline {
     
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git branch: "main", url: "https://github.com/Wasim30596/Infra_pipeline_Exercise.git"
-            }
+        stage('Checkout') {
+             steps {
+                checkout scm
+            } 
         }
 
         stage('Terraform Init') {
