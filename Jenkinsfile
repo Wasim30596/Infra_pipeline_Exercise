@@ -25,8 +25,8 @@ pipeline {
             steps {
                 dir("${TF_WORKDIR}") {
                     sh 'terraform plan -out=tfplan'
-                    sh 'terraform show -no-color tfplan > plan.txt'
-                    cat plan.txt
+                    sh 'terraform show -no-color tfplan > tfplan.txt'
+                    cat tfplan.txt
                 }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
         stage('Approval') {
             steps {
                 
-                    input message: 'Check plan.txt in artifacts. Proceed with apply?', ok: 'Apply'
+                    input message: 'Approve the changes?', ok: 'Apply'
                 
             }
         }
