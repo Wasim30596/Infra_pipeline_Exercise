@@ -25,8 +25,8 @@ pipeline {
             steps {
                 dir("${TF_WORKDIR}") {
                     sh 'terraform plan -out=tfplan'
-                    sh 'terraform show -no-color tfplan > tfplan.txt'
-                    cat tfplan.txt
+                    sh 'terraform show -no-color tfplan > plan.txt'
+                    sh 'cat plan.txt'
                 }
             }
         }
