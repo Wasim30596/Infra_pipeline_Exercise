@@ -58,7 +58,7 @@ stage('Terraform Destroy') {
     when {
         expression { return true }
     }
-    dir('environments/dev') {
+    dir("${TF_WORKDIR}") {
         sh '''
             terraform init
             terraform destroy -auto-approve
