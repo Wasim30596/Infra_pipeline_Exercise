@@ -47,5 +47,23 @@ pipeline {
                 }
             }
         }
+        stage('Destroy Approval') {
+    input {
+        message "Do you want to destroy the infrastructure?"
+        ok "Yes, destroy"
+    }
+}
+
+stage('Terraform Destroy') {
+    when {
+        expression { return true }
+    }
+    dir('environments/dev') {
+        sh '''
+            terraform init
+            terraform destroy -auto-approve
+        '''
+    }
+}
     }
 }
