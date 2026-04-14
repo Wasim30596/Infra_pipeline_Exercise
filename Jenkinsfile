@@ -8,7 +8,7 @@ pipeline {
     stages {
 
         stage('Checkout') {
-             steps {
+            steps {
                 checkout scm
             } 
         }
@@ -31,12 +31,9 @@ pipeline {
             }
         }
 
-        
         stage('Approval') {
             steps {
-                
-                    input message: 'Approve the changes?', ok: 'Apply'
-                
+                input message: 'Approve the changes?', ok: 'Apply'
             }
         }
 
@@ -47,23 +44,22 @@ pipeline {
                 }
             }
         }
-        stage('Destroy Approval') {
-    input {
-        message "Do you want to destroy the infrastructure?"
-        ok "Yes, destroy"
-    }
-}
 
-stage('Terraform Destroy') {
-    when {
-        expression { return true }
-    }
-    dir("${TF_WORKDIR}") {
-        sh '''
-            terraform init
-            terraform destroy -auto-approve
-        '''
-    }
-}
+        stage('Destroy Approval') {
+            steps {
+                input message: '⚠️ Do you want to destroy the infrastructure?', ok: 'Yes, destroy'
+            }
+        }
+
+        stage('Terraform Destroy') {
+            steps {
+                dir("${TF_WORKDIR}") {
+                    sh '''
+                        terraform init
+                        terraform destroy -auto-approve
+                    '''
+                }
+            }
+        }
     }
 }
